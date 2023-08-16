@@ -1,6 +1,6 @@
 {
   "name": "app-electron-update",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "publish": {
       "provider": "github",
       "owner": "eucliwoodhell",
-      "repo": "app-electron-update"
+      "repo": "app-electron-update",
+      "private": false
     }
   },
   "keywords": [],
@@ -31,5 +32,9 @@
   },
   "dependencies": {
     "electron-log": "^4.4.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eucliwoodhell/app-electron-update.git"
   }
 }
