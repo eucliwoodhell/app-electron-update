@@ -1,6 +1,6 @@
 {
   "name": "app-electron-update",
-  "version": "2.5.0",
+  "version": "2.5.5",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "electron .",
     "build": "electron-builder build --mac --win --publish never",
     "deploy": "electron-builder build --win --publish always",
-    "package": "electron-builder -p always"
+    "package": "electron-builder --win -p always"
   },
   "build": {
     "publish": {
