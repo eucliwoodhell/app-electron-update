@@ -1,13 +1,13 @@
 {
   "name": "app-electron-update",
-  "version": "2.5.5",
+  "version": "3.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "build": "electron-builder build --mac --win --publish never",
-    "deploy": "electron-builder build --win --publish always",
+    "deploy": "electron-builder build --mac --win --publish always",
     "package": "electron-builder --win -p always"
   },
   "build": {
@@ -16,11 +16,6 @@
       "owner": "eucliwoodhell",
       "repo": "app-electron-update",
       "private": false
-    },
-    "win": {
-      "publish": [
-        "github"
-      ]
     }
   },
   "keywords": [],
@@ -36,7 +31,8 @@
     "extends": "standard"
   },
   "dependencies": {
-    "electron-log": "^4.4.8"
+    "electron-log": "^4.4.8",
+    "electron-updater": "^6.1.1"
   },
   "repository": {
     "type": "git",
