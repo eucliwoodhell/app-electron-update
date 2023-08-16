@@ -4,12 +4,10 @@ const path = require('path')
 const { autoUpdater } = require("electron-updater")
 const fs = require('fs')
 
-log.transports.file.resolvePath = () => {
-  if (fs.existsSync(path.join(__dirname, 'logs'))) {
-    fs.mkdirSync(path.join(__dirname, 'logs'), { recursive: true })
-  }
-  return path.join(__dirname, 'logs/main.log')
-}
+/* log.transports.file.resolvePath = () => {
+  // return path.join(__dirname, 'logs/main.log')
+  return path.join(__dirname, 'main.log')
+} */
 
 log.info('Main process starting...')
 log.info('Electron Version: ' + app.getVersion())
