@@ -1,20 +1,24 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const log = require('electron-log')
 const path = require('path')
 const { autoUpdater } = require("electron-updater")
 
-let win
-
 log.transports.file.resolvePath = () => {
   return path.join(__dirname, 'logs/main.log')
 }
+
+log.info('Main process starting...')
+log.info('Electron Version: ' + app.getVersion())
+let win
 
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   })
   log.info('Electron Version: ' + process.versions.electron)
@@ -36,3 +40,26 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('update-downloaded', () => {
   log.info('Update downloaded')
 })
+
+autoUpdater.on('update-not-available', () => {
+  log.info('Update not available')
+})
+
+autoUpdater.on('download-progress', (progressObj) => {
+  log.info("Download speed: " + progressObj.bytesPerSecond)
+  log.info(progressObj)
+});
+
+autoUpdater.on('error', (err) => {
+  log.error(err)
+})
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
+});
