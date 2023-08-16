@@ -11,11 +11,21 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>¡Hola desde el renderizador Electron!</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <h1>¡Hola desde el renderizador Electron!</h1>
     <p>👋</p>
     <p id="info"></p>
+    <div id="notification" class="hidden">
+      <p id="message"></p>
+      <button id="close-button" onClick="closeNotification()">
+        Close
+      </button>
+      <button id="restart-button" onClick="restartApp()" class="hidden">
+        Restart
+      </button>
+    </div>
   </body>
   <script src="./renderer.js"></script>
 </html>
