@@ -37,8 +37,13 @@ app.on('ready', () => {
   autoUpdater.checkForUpdatesAndNotify()
 })
 
-autoUpdater.on('update-available', () => {
+autoUpdater.on('update-available', (info) => {
   log.info('Update available')
+  log.info('version', info.version)
+  log.info('Release', info.releaseDate)
+  log.info('url', info.url)
+  console.log('version', info.version)
+  console.log('Release', info.releaseDate)
   win.webContents.send('update_available')
 })
 
@@ -60,16 +65,11 @@ autoUpdater.on('error', (err) => {
   log.error(err)
 })
 
-app.on('window-all-closed', function() {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
 
 ipcMain.on('restart_app', (event) => {
+  console.log('Restarting...')
   autoUpdater.quitAndInstall()
 })
