@@ -2,8 +2,12 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const log = require('electron-log')
 const path = require('path')
 const { autoUpdater } = require("electron-updater")
+const fs = require('fs')
 
 log.transports.file.resolvePath = () => {
+  if (fs.existsSync(path.join(__dirname, 'logs'))) {
+    fs.mkdirSync(path.join(__dirname, 'logs'), { recursive: true })
+  }
   return path.join(__dirname, 'logs/main.log')
 }
 
@@ -28,10 +32,6 @@ function createWindow() {
   win.loadFile(path.join(__dirname, 'index.html'))
 }
 
-/* win.once('ready-to-show', () => {
-  autoUpdater.checkForUpdatesAndNotify()
-}) */
-
 app.on('ready', () => {
   createWindow()
   autoUpdater.checkForUpdatesAndNotify()
@@ -42,8 +42,6 @@ autoUpdater.on('update-available', (info) => {
   log.info('version', info.version)
   log.info('Release', info.releaseDate)
   log.info('url', info.url)
-  console.log('version', info.version)
-  console.log('Release', info.releaseDate)
   win.webContents.send('update_available')
 })
 
@@ -70,6 +68,6 @@ ipcMain.on('app_version', (event) => {
 });
 
 ipcMain.on('restart_app', (event) => {
-  console.log('Restarting...')
   autoUpdater.quitAndInstall()
 })
+
