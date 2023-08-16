@@ -4,6 +4,10 @@ const version = document.getElementById('info')
 const notification = document.getElementById('notification')
 const message = document.getElementById('message')
 const restartButton = document.getElementById('restart-button')
+const closeButton = document.getElementById('close-button')
+
+restartButton.addEventListener('click', restartApp)
+closeButton.addEventListener('click', closeNotification)
 
 ipcRenderer.send('app_version')
 ipcRenderer.on('app_version', (event, arg) => {
