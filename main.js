@@ -66,6 +66,7 @@ ipcMain.on('app_version', (event) => {
 });
 
 ipcMain.on('restart_app', (event) => {
+  log.info('Restarting...')
   autoUpdater.quitAndInstall()
 })
 
